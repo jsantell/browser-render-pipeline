@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <link href="styles/style.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="container">
+            <h1>Sync Reflow</h1>
+            <ul class="pipeline">
+                <li class="js active">JavaScript</li>
+                <li class="restyle active">Restyle</li>
+                <li class="reflow active">Reflow</li>
+                <li class="paint active">Paint</li>
+                <li class="composite">Composite</li>
+            </ul>
+            <p class="description">
+            When setting a style and immediately fetching the value, the browser is forced to compute the resulting style immediately to return the value synchronously when requested in JS. If this style property affects the element's position, or any other element's position, this causes a reflow. View which properties can cause reflow on <a href="http://csstriggers.com">CSS Triggers</a>.
+            </p>
+            <button onclick="go();">Force Sync Reflow</button>
+            <div id="block"></div>
+        </div>
+<script>
+var block = document.querySelector("#block");
+
+function go () {
+  var i = 50;
+  while (--i) {
+    var h = block.clientHeight;
+    block.style.height = (200 + (i)) + "px";
+  }
+}
+
+</script>
+    </body>
+</html>

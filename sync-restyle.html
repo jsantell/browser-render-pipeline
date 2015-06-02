@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <link href="styles/style.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="container">
+            <h1>Sync Restyle</h1>
+            <ul class="pipeline">
+                <li class="js active">JavaScript</li>
+                <li class="restyle active">Restyle</li>
+                <li class="reflow">Reflow</li>
+                <li class="paint">Paint</li>
+                <li class="composite">Composite</li>
+            </ul>
+            <p class="description">
+                When setting a style and immediately fetching the value, the browser is forced to compute the resulting style immediately to return the value synchronously when requested in JS. If you need to access computed style values after setting them, atleast batch up the style reads after the style writes.
+            </p>
+            <button onclick="go();">Force Sync Restyle</button>
+            <div id="block"></div>
+        </div>
+<script>
+var block = document.querySelector("#block");
+function go () {
+    var _;
+    block.style.color="blue";
+    _ = window.getComputedStyle(block, "").backgroundColor;
+    block.style.color="green";
+    _ = window.getComputedStyle(block, "").backgroundImage;
+    block.style.color="red";
+    _ = window.getComputedStyle(block, "").backgroundAttachment;
+    /*
+    // For hard blocking restyle
+    for (var i = 0; i < 10; i++) {
+        block.style.backgroundColor = "#00" + i;
+        _ = document.defaultView.getComputedStyle(block, "").backgroundColor;
+        for (var j = 0; j < 10; j++) {
+            block.style.backgroundColor = "#0" + j + i;
+            _ = document.defaultView.getComputedStyle(block, "").backgroundImage;
+        }
+    }
+    */
+}
+</script>
+    </body>
+</html>
